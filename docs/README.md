@@ -1,0 +1,106 @@
+# fly-brain documentation
+
+An embodied simulation of the male *Drosophila* central nervous system connectome, running in the browser.
+Each fly is a 165,122-neuron spiking brain inside a physics-simulated body, seeing through a trained
+compound-eye model. The brain turns what the fly senses into what it does. An endogenous-activity module
+supplies the spontaneous drive the model lacks, and hunger reaches the brain as hormones and octopamine.
+
+## Index
+
+The short version of all this is the [guide](guide/what-this-is.md) linked from the
+repository README. The long version is the textbook, [Compiling the Fly Brain](textbook/),
+which covers the structural analysis and the model ensembles.
+
+### Start here
+1. [Overview](01-overview.md): what the system is and how the pieces fit
+2. [Quickstart](02-quickstart.md): install, run, and use the apps
+
+### Data
+3. [Connectome data pipeline](03-data-pipeline.md): downloading and preprocessing male CNS v1.0
+4. [Connectome viewer](04-connectome-viewer.md): the `index.html` brain viewer
+
+### Brain
+5. [Brain model](05-brain-model.md): conductance-based LIF and its physiological additions
+6. [WebAssembly kernel](06-wasm-kernel.md): shared-memory brains and the flyvis kernel
+7. [Calibration](07-calibration.md): fitting parameters to published behaviour
+
+### Body
+8. [Body and physics](08-body-physics.md): flybody in MuJoCo, contact layers, timestep
+9. [Neuron-to-body map](09-bodymap.md): motor neurons to muscles, sensory neurons to sensors
+10. [Senses](10-senses.md): taste, smell, touch, proprioception, heat, wind
+11. [Vision](11-vision.md): flyvis optic-lobe model and retinotopic mapping
+12. [Motor output](12-motor.md): descending-neuron readout and muscle activation
+13. [Gait](13-gait.md): stepping pattern generator from real-fly kinematics
+14. [Reflexes](14-reflexes.md): escape jump and righting
+
+### World
+15. [Arena app](15-arena.md): workers, rendering, presets, controls
+16. [Physiology](16-physiology.md): energy, hunger, feeding, damage
+
+### Results and status
+17. [Experiments and scripts](17-experiments.md): headless tools and the behaviour report
+18. [Performance](18-performance.md): where time goes and what was optimised
+19. [Limitations](19-limitations.md): what does not work yet, and why
+20. [Roadmap](20-roadmap.md): the motor programme first, then what is reachable now, what needs data that exists, and what needs data nobody has
+21. [References](21-references.md): datasets, models, and papers used
+
+### Delivery
+22. [Data codecs](22-codecs.md): how the connectome, skeletons and neuron table are packed for the browser
+
+### Behaviour
+23. [Endogenous behaviour](23-behaviour.md): bouts, saccades, obstacle and heat avoidance, feeding, search
+24. [Flight](24-flight.md): takeoff, blade-element flight on the 218 Hz stroke, collision avoidance, landing
+25. [Neuromodulation](25-neuromodulation.md): hunger through AKH, insulin and octopamine; OA optic-lobe gain
+26. [Courtship](26-courtship.md): LC10 detection, cVA pheromone, pIP10/DNp13 pursuit, wing display
+27. [WebGPU](27-webgpu.md): GPU LIF kernel with WASM fallback
+
+### Analysis
+28. [Algorithmic structures](28-algorithmic-structures.md): what the wiring computes — hierarchy, recurrence, motifs, ring attractor, expansion coding, convolution kernels
+29. [Connectome compiler](29-connectome-compiler.md): dataset-agnostic IR + generic analysis, worm vs fly first comparison
+30. [Hypothesis lab](30-hypothesis-lab.md): model ensembles, discriminating-experiment ranking, PDE ring-attractor benchmark
+31. [Ablation ladder](31-ablation-ladder.md): which levels of description the benchmark needs, measured — with and without refitting
+32. [Per-connection uncertainty](32-synapse-uncertainty.md): reconstruction error estimated from bilateral replicates, and empirical-Bayes weights
+33. [Differentiable brain](33-differentiable-brain.md): surrogate-gradient adjoint over the whole CNS and the optic lobe joined to it, and the three things that stop a visual assay fitting end to end
+34. [Individual validation](34-individual-validation.md): testing the model against one identified fly rather than against population averages — and which observable to record, now measured
+35. [Behavioural ladder](35-behaviour-ladder.md): the same substitutions, measured in the arena instead of on the physiological benchmark
+36. [Stepping from the nerve cord](36-vnc-stepping.md): roadmap item M2 scoped as a project of its own — what it needs, what would finish it, and the two points at which to stop
+37. [Scaffold ledger](37-scaffold-ledger.md): every named mechanism that isn't the graph, what it costs, and the kill tests that say whether it is required
+38. [Reafference](38-reafference.md): learning to cancel self-generated sensory input — what it fixed, and what it could not
+39. [VNC readout](39-vnc-readout.md): fitting leg-motor gains on the frozen subgraph — and the scramble that beats the real wiring
+40. [Octopamine operators](40-oa-operators.md): four typed OA mechanisms and the discriminator assay that split them
+41. [Visual adjoint](41-visual-adjoint.md): the C¹ coupling, the stable reverse kernel, and the first permitted visual fit — a recorded negative
+42. [Engram](42-engram.md): the mushroom-body memory harness — anatomy-derived compartments, a named per-edge gain, a teach rule, and whether the written engram can be read back
+43. [GPU adjoint](43-gpu-adjoint.md): the backward sweep on WebGPU — kernels, packing, and the correctness gates
+44. [Walking compiler](44-walking-compiler.md): the experiment compiler pointed at the nerve cord — a phase-free gait instrument, cell-type and edge-class perturbations, null wirings as ensemble members, the first walk-from-cord run, and the response battery: real perturbation experiments as the objective
+45. [Bend formalization](45-bend-formalization.md): the connectome compiler and the male connectome in Bend — a pure model of the IR, the lowering and the kernel's fire rule and delay line, 34 laws with machine-checked proofs, and a parallel run over the real tables that reproduces the shipped build's numbers
+46. [The cord in Bend](46-cord-ir.md): the leg-premotor subgraph as a checked object with the induced-subgraph property proven, the spiking kernel gated bit-identical, perturbations as proven operations, a gait instrument with no body, and a 64-member search that found no rhythm
+47. [External cord](47-cord-external.md): the BANC nerve cord through the checked IR and ensemble, with a corrected bilateral in-phase population score and no leg gait
+48. [Cord mechanism audit](48-cord-mechanisms.md): a mechanism screen, the repaired spectral scorer, and longer runs that withdraw an apparent anti-phase-basin result
+49. [Scrambled cords and antagonist alternation](49-cord-scramble-alternation.md): the in-phase population mode survives degree-preserving scrambles, the real cord's coxa-trochanter antagonists are anticorrelated where a scramble's are co-active, and adaptation or rebound added uniformly yields no rhythm
+50. [Cord cell types](50-cord-cell-types.md): rebound, adaptation, graded release and tonic drive placed by premotor class; the antagonist signature replicates against both scrambles, no rhythm appears, graded release needs recalibration, and only the front-leg pools are ever reached
+51. [Where the cord's posture comes from](51-cord-drive.md): per-cell drive shows 19A holding flexors and 13A holding extensors in a mutually inhibitory loop 1.6x denser than chance; fatigue in that loop gives sustained, wiring-specific antagonist switching, and a pre-registered 10 s test finds it is not periodic
+52. [Slow adaptation in the inhibitory premotor loop](52-cord-slow-adaptation.md): a 100 ms-1 s fatigue variable in the 19A/13A loop leaves the switch periodless over 10 s; dwells of 20 ms are too short for any slow process to time, so the missing ingredient is hysteresis
+53. [Can the cord's wiring hold a half-centre's state?](53-cord-hysteresis.md): the real cord's premotor flexor and extensor halves favour themselves (difference/common mode 1.31 against −0.32 and 0.35 for the scrambles), but in activity 19A's self-inhibition cancels each half's recurrent excitation, so the switch is noise-driven; the literature finds 19A/13A intrinsic bistability unmeasured
+54. [Weakening the inhibition inside each half](54-cord-within-half.md): removing within-hemilineage or own-half inhibition leaves the antagonist switch's memory under 50 ms; the pre-registered dwell criterion passes no member and the 10 s test fails; doc 52's 20 ms dwells are the 10 ms measure's counting-noise floor, so timescale is now read from correlation against bin width
+
+## Repository layout
+
+| Path | Contents |
+|---|---|
+| `index.html`, `src/main.js` | Connectome viewer |
+| `arena.html`, `src/arena.js` | Embodied arena |
+| `structures.html`, `src/structures.js` | Algorithmic-structure visualisation ([doc 28](28-algorithmic-structures.md)) |
+| `src/sim/` | Fly agent, world, senses, vision, motor, endogenous behaviour, neuromodulation, flight, worker |
+| `src/lif.js`, `src/lifwasm.js`, `src/lifgpu.js`, `src/wasm/lif.c` | Brain model in JS, WebAssembly and WebGPU |
+| `src/lifdiff.js` | Differentiable LIF: same dynamics, plus an adjoint ([doc 33](33-differentiable-brain.md)) |
+| `src/flyvisdiff.js` | Differentiable optic lobe: `fv_step`'s dynamics bit-for-bit, plus an adjoint |
+| `src/visdiff.js` | The two joined into one differentiable chain, luminance to spikes |
+| `src/diffsetup.js` | The per-neuron structure `makeBrain` applies, in the form the adjoint takes |
+| `src/brainmodel.js`, `src/brainsetup.js` | Calibrated brain construction, shared memory |
+| `connectome.bend`, `dataset.bend`, `LAWS.bend`, `PROOF.bend`, `malecns.bend` | The compiler and the male connectome formalized in Bend, with laws, proofs and a run over the real tables ([doc 45](45-bend-formalization.md)) |
+| `cord.bend`, `kernel.bend`, `perturb.bend`, `cordcheck.bend`, `cordrun.bend`, `cordens.bend` | The nerve cord in Bend: a checked subgraph, a bit-identical kernel, proven perturbations, and the ensemble ([doc 46](46-cord-ir.md)) |
+| `src/exp/pools.js` | The gait instrument over motor-pool spike trains, with no body ([doc 46](46-cord-ir.md)) |
+| `src/flyvis.js` | flyvis optic-lobe runtime |
+| `public/` | Preprocessed data served to the browser |
+| `scripts/` | Preprocessing, calibration, optimisation, tests |
+| `PLAN.md` | Condensed design notes |

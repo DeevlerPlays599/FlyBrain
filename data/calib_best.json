@@ -1,0 +1,16 @@
+{
+ "s": 0.7944,
+ "cfg": {
+  "coba": true,
+  "neuromod": true,
+  "wSyn": 0.562,
+  "sizeAlpha": 0.572,
+  "kcThreshold": 7.319,
+  "inhGain": 0.577,
+  "eInh": -69.079,
+  "minSyn": 6,
+  "adaptInc": 0.072,
+  "tRef": 3.682,
+  "laminaBias": 2.86
+ }
+}
