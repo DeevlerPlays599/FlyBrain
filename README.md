@@ -6,10 +6,10 @@ physics-simulated body, in a web browser, and then asks a simple question: which
 fly's behaviours does the wiring produce on its own, and which had to be added from
 outside the graph? The second list turned out to be as interesting as the first.
 
-**Try it:** [arena](https://lulzx.com/fly-brain/arena.html) ·
-[connectome viewer](https://lulzx.com/fly-brain/) ·
-[algorithmic structures](https://lulzx.com/fly-brain/structures.html) ·
-[the textbook](https://lulzx.com/fly-brain/textbook/)
+**Try it:** [arena](https://flybrain-n70m.onrender.com/arena.html) ·
+[connectome viewer](https://flybrain-n70m.onrender.com/) ·
+[algorithmic structures](https://flybrain-n70m.onrender.com/structures.html) ·
+[the textbook](https://flybrain-n70m.onrender.com/textbook/)
 (desktop Chrome, Edge or Firefox; the viewer downloads about 30 MB, the arena about 23 MB)
 
 ## Start here
